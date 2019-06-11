@@ -1,0 +1,9 @@
+.D_Store
+*.log
+node_modules
+designs
+Gulpfile.js
+.travis.yml
+.vscode
+coverage
+src/

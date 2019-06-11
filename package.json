@@ -1,0 +1,46 @@
+{
+  "name": "hilog",
+  "displayName": "hilog",
+  "version": "1.0.2",
+  "description": "A lightweight and high-quality log Library",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "lint": "tslint --project ./tsconfig.json --fix",
+    "build": "npm run clean && npm run lint && tsc",
+    "dev": "nodemon --watch 'src/**/*.{ts,nj,yml}' --ignore 'src/**/*.spec.ts' --exec 'ts-node' ./src/_example/index.ts"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Houfeng",
+    "email": "admin@xhou.net"
+  },
+  "homepage": "https://github.com/houfeng/hilog",
+  "bugs": {
+    "url": "https://github.com/houfeng/hilog/issues",
+    "email": "admin@xhou.net"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/houfeng/hilog.git"
+  },
+  "dependencies": {
+    "@types/mkdirp": "^0.5.2",
+    "console3": "^1.0.6",
+    "lockman": "^1.0.2",
+    "mkdirp": "^0.5.1",
+    "ntils": "^4.0.8",
+    "oneport": "^1.0.2",
+    "split": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^12.0.1",
+    "nodemon": "^1.19.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-dawn": "^1.0.2",
+    "typescript": "^3.4.5"
+  }
+}
