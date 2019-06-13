@@ -34,7 +34,6 @@ export class LogClient {
       if (resolve) resolve(false);
     };
     const successHandler = async (resolve?: Function) => {
-      await this.serverProcess.send({ options: this.options, name: this.name });
       if (resolve) resolve(true);
     };
     this.starting = new Promise<boolean>(resolve => {
@@ -84,9 +83,10 @@ export class LogClient {
     this.connecting = new Promise<boolean>(resolve => {
       this.socket.on("error", () => errorHandler(resolve));
       this.socket.on("timeout", () => () => errorHandler(resolve));
-      this.socket.on("connect", () => {
+      this.socket.on("connect", async () => {
         this.connected = true;
         this.connectCount++;
+        await this.sendOptions();
         resolve(true);
       });
       this.socket.on("close", () => {
@@ -131,6 +131,13 @@ export class LogClient {
         return err ? reject(err) : resolve(message);
       });
     });
+  }
+
+  /**
+   * 发送日志选项
+   */
+  private async sendOptions() {
+    return this.sendMessage({ options: this.options });
   }
 
   /**

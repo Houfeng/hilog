@@ -24,10 +24,12 @@ function parse(data: string) {
 const server = createServer((socket: Socket) => {
   socket.pipe(split()).on("data", (data: string) => {
     if (!data) return;
-    const { name, log } = parse(data);
-    if (log !== undefined && logsMap[name]) {
-      logsMap[name].push(log);
+    const { name, log, options } = parse(data);
+    if (options !== undefined) {
+      optionsMap[name] = options;
+      logsMap[name] = [];
     }
+    if (log !== undefined && logsMap[name]) logsMap[name].push(log);
   });
 });
 
@@ -68,14 +70,6 @@ async function appendFile(filename: string, data: any) {
     fs.appendFile(filename, data, err => (err ? reject(err) : resolve()));
   });
 }
-
-process.on("message", message => {
-  const { name, options } = message;
-  if (name && options !== undefined) {
-    optionsMap[name] = options;
-    logsMap[name] = logsMap[name] || [];
-  }
-});
 
 (async () => {
   const port = await getPort();
