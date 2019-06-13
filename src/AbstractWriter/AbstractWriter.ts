@@ -2,7 +2,8 @@ import { ILogItem } from "../Logger/ILogItem";
 import { IWriterOptions } from "./IWriterOptions";
 import { IWriter } from "./IWriter";
 
-const DEFAULT_FORMAT = "[:time] [:level] :category - :data :hostname #:pid";
+const DEFAULT_FORMAT =
+  "[{time}] [{level}] {category} - {data} {hostname} #{pid}";
 
 /**
  * 抽象 Writer 基类
@@ -38,7 +39,7 @@ export class AbstractWriter<T extends IWriterOptions = IWriterOptions>
       const value = logItem[key];
       const formatedValue =
         key === "time" ? new Date(value).toLocaleString() : value;
-      text = text.replace(`:${key}`, formatedValue);
+      text = text.replace(`{${key}}`, formatedValue);
     });
     return text;
   }

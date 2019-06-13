@@ -29,7 +29,9 @@ const server = createServer((socket: Socket) => {
       optionsMap[name] = options;
       logsMap[name] = [];
     }
-    if (log !== undefined && logsMap[name]) logsMap[name].push(log);
+    if (log !== undefined && logsMap[name]) {
+      logsMap[name].push(log);
+    }
   });
 });
 
@@ -59,7 +61,11 @@ async function createDir(dirPath: string) {
 
 async function writeLogs(options: IFileWriterOptions, logs: string[]) {
   const { location, root } = options;
-  const logFile = resolve(root, formatDate(new Date(), location));
+  if (!location) return;
+  const formatFile = location.replace(/\{(.+)?\}/, (...info) =>
+    formatDate(new Date(), info[1] || "")
+  );
+  const logFile = resolve(root, formatFile);
   const logDir = dirname(logFile);
   if (!fs.existsSync(logDir)) await createDir(logDir);
   return appendFile(logFile, logs.join(EOL) + EOL);

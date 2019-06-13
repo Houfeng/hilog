@@ -6,7 +6,7 @@ import { Level } from "../Logger";
     writers: {
       error: {
         type: "file",
-        location: "error-yyyy-MM-dd.log",
+        location: "error-{yyyy-MM-dd}.log",
         categories: ["default"],
         level: [Level.error]
       },
