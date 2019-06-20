@@ -1,7 +1,7 @@
 {
   "name": "hilog",
   "displayName": "hilog",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A lightweight and high-quality log Library",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -9,7 +9,8 @@
     "clean": "rm -rf ./lib",
     "lint": "tslint --project ./tsconfig.json --fix",
     "build": "npm run clean && npm run lint && tsc",
-    "dev": "nodemon --watch 'src/**/*.{ts,nj,yml}' --ignore 'src/**/*.spec.ts' --exec 'ts-node' ./src/_example/index.ts"
+    "dev": "nodemon --watch 'src/**/*.{ts,nj,yml}' --ignore 'src/**/*.spec.ts' --exec 'ts-node' ./src/_example/index.ts",
+    "pu": "npm pu --registry=http://registry.npmjs.org"
   },
   "keywords": [],
   "author": {
