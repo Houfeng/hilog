@@ -12,10 +12,11 @@ function wrapConsole(originConsole: any) {
   const newConsole = Object.create(originConsole);
   ["log", "info", "warn", "error"].forEach(name => {
     const func = newConsole[name];
-    newConsole[name] = (time: number, formater: string, ...args: any[]) => {
-      const text = format(formater, ...args);
-      const prefix = `[${new Date(time).toLocaleString()}]`;
-      return func.call(newConsole, chalk.blue(prefix), colors[name](text));
+    newConsole[name] = (formater: string, ...args: any[]) => {
+      const text = format(formater, ...args).replace(/\[(.)+?\]/, time =>
+        chalk.blue(time)
+      );
+      return func.call(newConsole, colors[name](text));
     };
   });
   newConsole.debug = newConsole.log;
